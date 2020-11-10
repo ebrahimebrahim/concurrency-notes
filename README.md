@@ -1,2 +1,2 @@
 # concurrency-notes
-notes about 
+notes about concurrency in c++
