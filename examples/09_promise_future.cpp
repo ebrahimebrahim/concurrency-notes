@@ -33,14 +33,14 @@ void fill_in_forty_two(std::promise<int> a) {
 int main() {
 
     std::promise<int> fill_me_with_forty_two;
-    std::future<int> f = fill_me_with_forty_two.get_future();
+    std::future<int> ftr = fill_me_with_forty_two.get_future();
 
     std::thread t(fill_in_forty_two, std::move(fill_me_with_forty_two)); // promises have to be moved, not copied
 
-    std::cout << "The worker thread that should be sending us 42 has started..." << std::endl;
+    std::cout << "The worker thread has started; hopefully it fills our future bin with 42 ..." << std::endl;
 
-    int hopefully_forty_two = f.get(); // blocks until a.set_value happens
-    std::cout << "The promise has finally been fullfilled! We have: " << hopefully_forty_two << std::endl;
+    int hopefully_forty_two = ftr.get(); // blocks until a.set_value happens
+    std::cout << "The promise has finally been fullfilled! Let's see what the future holds... we have " << hopefully_forty_two << std::endl;
 
     t.join();
 
