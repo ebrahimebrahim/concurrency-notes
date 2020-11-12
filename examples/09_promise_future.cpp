@@ -17,7 +17,7 @@
 #include <thread>
 #include <future>
 
-void fill_in_forty_two(std::promise<int> a) {
+void fill_in_forty_two(std::promise<int> && a) {
     std::this_thread::sleep_for(std::chrono::seconds(2));
     a.set_value(42);
 }
@@ -38,3 +38,12 @@ int main() {
 
     return 0;
 }
+
+/*
+    If you want to handle an exception while setting a promise, you can actually "set_exception" rather than "set_value"
+    in the promise. This will make send the exception along to the future and make the future throw it when its "get" finishes.
+    So this way an exception from a worker thread could get handled in the main thread, for example.
+
+    Besides "get", other useful methods of a std::future are "wait" and "wait_for",
+    which you can look up.
+*/
