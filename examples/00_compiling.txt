@@ -1,0 +1,4 @@
+The examples are meant to be read in order.
+Each example compiles on its own. For example:
+  g++ -pthread 01_thread_basics.cpp
+  ./a.out
