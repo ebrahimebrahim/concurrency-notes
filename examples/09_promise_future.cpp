@@ -17,7 +17,15 @@
 #include <thread>
 #include <future>
 
-void fill_in_forty_two(std::promise<int> && a) {
+/* (Unimportant comment: 
+    In the following, we could pass by rvalue reference or by value.
+    Either way we will have to std::move the promise that we make later on.
+    The only difference will be in how many move constructors get called.
+    There is disagreement about which way to go, but I think
+    passing a move-only object by value is the cleaner way to communicate
+    that this function is a sink for the object.)
+*/  
+void fill_in_forty_two(std::promise<int> a) {
     std::this_thread::sleep_for(std::chrono::seconds(2));
     a.set_value(42);
 }
