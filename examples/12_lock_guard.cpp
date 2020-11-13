@@ -71,4 +71,9 @@ int main() {
     then you can end up having a thread needlessly hogging the lock. Use std::unique_lock instead of std::lock_guard
     if you want to manually unlock before leaving scope. unique_lock, like lock_guard, will unlock its mutex in its destructor. 
     It's also handy as a unique object to pass around (it is move-only; i.e. its copy constructor is deleted).
+
+    What about the second form of deadlock described at the top?
+    The easiest way to avoid it is to just never lock multiple mutexes.
+    It can usually be avoided.
+    But if you have to do it, then look up std::lock.
 */
