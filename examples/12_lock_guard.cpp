@@ -64,3 +64,11 @@ int main() {
 
     return 0;
 }
+
+/*
+    std::unique_lock:
+    If the critical section of code (the section that needs to be under lock) ends well before a lock_guard goes out of scope,
+    then you can end up having a thread needlessly hogging the lock. Use std::unique_lock instead of std::lock_guard
+    if you want to manually unlock before leaving scope. unique_lock, like lock_guard, will unlock its mutex in its destructor. 
+    It's also handy as a unique object to pass around (it is move-only; i.e. its copy constructor is deleted).
+*/
