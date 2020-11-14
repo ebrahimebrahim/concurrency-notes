@@ -56,8 +56,8 @@ public:
         std::unique_lock<std::mutex> lock(_mutex);
         _cond.wait(lock, [this] { return !_messages.empty(); });
 
-        T v = std::move(_messages.back());
-        _messages.pop_back();
+        T v = std::move(_messages.front());
+        _messages.pop_front();
 
         return v; // will not be copied due to return value optimization
     }
@@ -72,7 +72,7 @@ public:
 
 int main() {
 
-    std::shared_ptr<MessageQueue<std::string>> mq;
+    auto mq = std::make_shared<MessageQueue<std::string>>();
 
     std::vector<std::future<void>> futures;
 
